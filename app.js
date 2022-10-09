@@ -2,14 +2,27 @@ const express = require('express');
 
 const app = express();
 
-app.use((req, res, next) => { //Header IMPORTANT
+app.use(express.json()); //contenu du cours
+/**
+ * Anciennement le package body-parser
+ * Permet de console.log une requête (req.body)
+ */
+
+app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
   });
 
-app.use('/api/stuff', (req, res, next) => {
+app.post('/api/stuff',(req,res,next)=>{ // contenu du cours
+    console.log(req.body);
+    res.status(201).json({
+        message: "Objet créé"
+    })
+})
+
+app.get('/api/stuff', (req, res, next) => {
     const stuff = [
       {
         _id: 'oeihfzeoi',
@@ -34,8 +47,17 @@ app.use('/api/stuff', (req, res, next) => {
 module.exports = app; 
 
 /**
- * exports pour exporter notre app et accéder depuis un autre fichier
- * run 
- * https://openclassrooms.com/fr/courses/6390246-passez-au-full-stack-avec-node-js-express-et-mongodb/6466277-creez-une-application-express
+ * npx nodemon côté backend
+ * npm run start côté front-end
+ * 
+ * Terminal après avoir envoyé le formulaire
+ * 
+ * {
+  title: 'Hello',
+  description: 'Description here',
+  price: 1300,
+  imageUrl: 'Url.png',
+  _id: '1665336001090',
+  userId: 'userID40282382'
+}
  */
-
