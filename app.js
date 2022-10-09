@@ -1,12 +1,14 @@
 const express = require('express');
-
+const mongoose = require('mongoose'); //ajout
 const app = express();
 
-app.use(express.json()); //contenu du cours
-/**
- * Anciennement le package body-parser
- * Permet de console.log une requête (req.body)
- */
+mongoose.connect('mongodb+srv://toreapat:041219Tp@cluster0.4xxfeao.mongodb.net/?retryWrites=true&w=majority', // ajout
+{ useNewUrlParser: true,
+useUnifiedTopology: true })
+.then(() => console.log('Connexion à MongoDB réussie !'))
+.catch(() => console.log('Connexion à MongoDB échouée !'));
+  
+app.use(express.json());
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -15,7 +17,7 @@ app.use((req, res, next) => {
     next();
   });
 
-app.post('/api/stuff',(req,res,next)=>{ // contenu du cours
+app.post('/api/stuff',(req,res,next)=>{
     console.log(req.body);
     res.status(201).json({
         message: "Objet créé"
@@ -45,19 +47,3 @@ app.get('/api/stuff', (req, res, next) => {
   });
 
 module.exports = app; 
-
-/**
- * npx nodemon côté backend
- * npm run start côté front-end
- * 
- * Terminal après avoir envoyé le formulaire
- * 
- * {
-  title: 'Hello',
-  description: 'Description here',
-  price: 1300,
-  imageUrl: 'Url.png',
-  _id: '1665336001090',
-  userId: 'userID40282382'
-}
- */
