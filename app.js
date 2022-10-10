@@ -1,8 +1,8 @@
 const express = require('express');
-const mongoose = require('mongoose'); //ajout
+const mongoose = require('mongoose');
 const app = express();
 
-mongoose.connect('mongodb+srv://toreapat:041219Tp@cluster0.4xxfeao.mongodb.net/?retryWrites=true&w=majority', // ajout
+mongoose.connect('mongodb+srv://toreapat:041219Tp@cluster0.4xxfeao.mongodb.net/?retryWrites=true&w=majority',
 { useNewUrlParser: true,
 useUnifiedTopology: true })
 .then(() => console.log('Connexion à MongoDB réussie !'))
